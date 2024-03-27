@@ -19,11 +19,11 @@ namespace RunningLate
             I18n.Init(helper.Translation);
 
             helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+            _ = new Events(helper, ModManifest.UniqueID);
 
             var harmony = new Harmony(ModManifest.UniqueID);
             harmony.Patch(
                 original: AccessTools.Method(typeof(StardewValley.Menus.DayTimeMoneyBox), nameof(StardewValley.Menus.DayTimeMoneyBox.draw), new Type[] { typeof(SpriteBatch) }),
-                prefix: new HarmonyMethod(typeof(DayTimeMoneyBoxPatch), nameof(DayTimeMoneyBoxPatch.Draw_Prefix)),
                 transpiler: new HarmonyMethod(typeof(DayTimeMoneyBoxPatch), nameof(DayTimeMoneyBoxPatch.Draw_Transpiler))
             );
         }

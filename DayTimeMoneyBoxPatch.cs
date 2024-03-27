@@ -18,8 +18,7 @@ namespace RunningLate
         private static readonly MethodInfo m_measureString = AccessTools.Method(typeof(SpriteFont), nameof(SpriteFont.MeasureString), new Type[] { typeof(StringBuilder) });
         private static readonly MethodInfo m_test = AccessTools.Method(typeof(DayTimeMoneyBoxPatch), nameof(DayTimeMoneyBoxPatch.UpdateClockTime));
 
-        private static int InternalTime { get; set; }
-        private static int LastGameTime { get; set; }
+        public static int CurrentTimeMS { get; set; }
 
         public static IEnumerable<CodeInstruction> Draw_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
@@ -58,31 +57,6 @@ namespace RunningLate
             }
         }
 
-        public static void Draw_Prefix()
-        {
-            try
-            {
-                int time = Game1.timeOfDay;
-                if (Game1.shouldTimePass(false))
-                {
-                    if (time != LastGameTime)
-                    {
-                        LastGameTime = time;
-                        InternalTime = 0;
-                    }
-                    else
-                    {
-                        InternalTime += Game1.currentGameTime.ElapsedGameTime.Milliseconds;
-                        InternalTime = Math.Clamp(InternalTime, 0, 6999);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ModEntry.Logger.Log($"Failed in {nameof(Draw_Prefix)}:\n{ex}", LogLevel.Error);
-            }
-        }
-
         public static void UpdateClockTime(StringBuilder builder)
         {
             builder.Clear();
@@ -101,9 +75,9 @@ namespace RunningLate
                 builder.Append(' ');
             }
 
-            builder.Append(TimeFormatter.FormatHour(ModEntry.Config.HourFormat, time, InternalTime));
+            builder.Append(TimeFormatter.FormatHour(ModEntry.Config.HourFormat, time, CurrentTimeMS));
             builder.Append(':');
-            builder.Append(TimeFormatter.FormatMiute(ModEntry.Config.MinuteFormat, time, InternalTime));
+            builder.Append(TimeFormatter.FormatMiute(ModEntry.Config.MinuteFormat, time, CurrentTimeMS));
 
             if (ModEntry.Config.AmPmPosition == AmPmPosition.AFTER)
             {
