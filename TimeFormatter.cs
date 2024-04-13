@@ -10,6 +10,7 @@ namespace RunningLate
         {
             { HourFormat.H12_HOUR, (time, _) => time / 100 % 12 == 0 ? "12" : (time / 100 % 12).ToString() },
             { HourFormat.H24_HOUR, (time, _) => (time / 100 % 24).ToString() },
+             { HourFormat.H24_HOUR_FIXED, (time, _) => (time / 100 % 24).ToString("00") },
         };
 
         private static readonly IDictionary<MinuteFormat, Func<int, int, string>> MinuteFormatters = new Dictionary<MinuteFormat, Func<int, int, string>>

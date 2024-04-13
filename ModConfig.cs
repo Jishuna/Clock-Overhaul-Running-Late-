@@ -15,7 +15,7 @@
 
     public enum HourFormat
     {
-        H12_HOUR, H24_HOUR
+        H12_HOUR, H24_HOUR, H24_HOUR_FIXED
     }
 
     public enum AmPmPosition

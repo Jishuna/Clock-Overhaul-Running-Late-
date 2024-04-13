@@ -8,7 +8,7 @@ namespace RunningLate
     {
         private readonly IModHelper modHelper;
         private readonly string modId;
-        public Events(IModHelper helper, string modId) 
+        public Events(IModHelper helper, string modId)
         {
             this.modHelper = helper;
             this.modId = modId;

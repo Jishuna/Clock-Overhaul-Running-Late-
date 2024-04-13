@@ -71,7 +71,7 @@ namespace RunningLate
             configMenu.AddTextOption(
                 mod: this.ModManifest,
                 name: I18n.Config_AmPmPosition_Name,
-                tooltip:I18n.Config_AmPmPosition_Tooltip,
+                tooltip: I18n.Config_AmPmPosition_Tooltip,
                 allowedValues: Enum.GetNames(typeof(AmPmPosition)),
                 formatAllowedValue: this.TranslateAmPmPosition,
                 getValue: Config.AmPmPosition.ToString,
@@ -100,6 +100,7 @@ namespace RunningLate
             {
                 HourFormat.H12_HOUR => I18n.Config_HourFormat_Values_12(),
                 HourFormat.H24_HOUR => I18n.Config_HourFormat_Values_24(),
+                HourFormat.H24_HOUR_FIXED => I18n.Config_HourFormat_Values_24Fixed(),
                 _ => format.ToString()
             };
         }
