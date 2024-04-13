@@ -16,7 +16,7 @@ namespace RunningLate
     {
         private static readonly FieldInfo f_timeText = AccessTools.Field(typeof(DayTimeMoneyBox), "_timeText");
         private static readonly MethodInfo m_measureString = AccessTools.Method(typeof(SpriteFont), nameof(SpriteFont.MeasureString), new Type[] { typeof(StringBuilder) });
-        private static readonly MethodInfo m_test = AccessTools.Method(typeof(DayTimeMoneyBoxPatch), nameof(DayTimeMoneyBoxPatch.UpdateClockTime));
+        private static readonly MethodInfo m_updateClockTime = AccessTools.Method(typeof(DayTimeMoneyBoxPatch), nameof(DayTimeMoneyBoxPatch.UpdateClockTime));
 
         public static int CurrentTimeMS { get; set; }
 
@@ -39,7 +39,7 @@ namespace RunningLate
 
                 if (index != -1)
                 {
-                    codes.Insert(index, new CodeInstruction(OpCodes.Call, m_test));
+                    codes.Insert(index, new CodeInstruction(OpCodes.Call, m_updateClockTime));
                     codes.Insert(index, new CodeInstruction(OpCodes.Ldfld, f_timeText));
                     codes.Insert(index, new CodeInstruction(OpCodes.Ldarg_0));
                 }
